@@ -1,5 +1,9 @@
 # Inception
 
+## Local development environnment   
+Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
+- Base Memory: 4096 MB
+- Storage: VDI 20.80 GB
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
