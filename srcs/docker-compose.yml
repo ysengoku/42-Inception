@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   nginx:
-    build: requierements/nginx/
+    build: requirements/nginx/
     container_name: nginx
     ports:
       - "80:80"
