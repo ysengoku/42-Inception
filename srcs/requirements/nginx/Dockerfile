@@ -1,10 +1,10 @@
-FROM debian:latest
+FROM debian:bookworm
 
 # Install nginx
-RUN apt update && \
+RUN apt update -y && \
 	apt upgrade -y && \
 	apt install -y nginx && \
 	rm -rf /var/lib/apt/lists/*
 
-# Use exec form of CMD to ensure Nginx stays in the foreground
+# To ensure Nginx stays in the foreground
 CMD ["nginx", "-g", "daemon off;"]
