@@ -1,7 +1,5 @@
 version: "3.8"
 
-# sudo docker-compose -f ./srcs/docker-compose.yml up -d --build
-
 services:
   nginx:
     image: nginx  #image name
