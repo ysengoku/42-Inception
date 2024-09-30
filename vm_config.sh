@@ -5,9 +5,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install necessary packages
-sudo apt install git
-sudo apt install make
-sudo apt install vim
+sudo apt install git make vim
 
 # Add Docker's official GPG key
 #curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
@@ -18,6 +16,12 @@ sudo apt-get update
 # Install Docker Engine
 sudo apt-get install docker-ce -y
 sudo apt-get update
+sudo systemctl enable docker
+sudo systemctl start docker
 
 # Clean up
 sudo rm -rf /var/lib/apt/lists/*
+
+# Add User to docker group
+sudo usermod -aG docker $USER
+sudo reboot
