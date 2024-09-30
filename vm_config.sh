@@ -22,6 +22,11 @@ sudo systemctl start docker
 # Clean up
 sudo rm -rf /var/lib/apt/lists/*
 
+if [ ! -d "/home/$USER/data" ]; then \
+	mkdir /home/$USER/data; \
+	echo "data directory created successfully"; \
+fi
+
 # Add User to docker group
 sudo usermod -aG docker $USER
 sudo reboot

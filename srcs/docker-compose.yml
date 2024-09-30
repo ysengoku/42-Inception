@@ -2,7 +2,8 @@ services:
   nginx:
     image: nginx  #image name
     container_name: nginx
+    env_file: .env
     build: requirements/nginx/. #path to Dockerfile
     ports:
       - "443:443"
-    restart: on-failure
+    restart: always
