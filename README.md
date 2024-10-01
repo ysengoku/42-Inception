@@ -11,6 +11,12 @@ Install
 - docker.io `sudo apt-get install docker.io`
 - docker-compose `sudo apt-get install docker-compose`
 
+## Docker commands
+```bash
+# Execute a shell within a running Docker container named <container_name>
+docker exec -it <container_name> bash
+```
+
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
 
