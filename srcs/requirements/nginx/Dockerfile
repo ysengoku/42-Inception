@@ -32,7 +32,9 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
-RUN chmod 755 /var/www/html
+# Set the permissions
+RUN chmod -R 755 /var/www/html
+# Set the ownership
 RUN chown -R www-data:www-data /var/www/html
 
 # To ensure Nginx stays in the foreground
