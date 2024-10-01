@@ -1,17 +1,21 @@
 # Inception
 
 ## Local development environnment   
-Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
+### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
 - Base Memory: 4096 MB
 - Storage: VDI 20.80 GB
 
-Install
+### Install necessary applications
+```bash
+bash vm_config.sh
+```
+This configuration file includes: 
 - git
+- make
 - vim
-- docker.io `sudo apt-get install docker.io`
-- docker-compose `sudo apt-get install docker-compose`
+- docker-ce
 
-## Docker commands
+## Some useful docker commands
 ```bash
 docker ps
 # Show active containers status
