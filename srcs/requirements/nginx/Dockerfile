@@ -7,7 +7,7 @@ RUN	apt install -y nginx && \
 
 # Configure TSL
 RUN mkdir -p /etc/nginx/ssl
-RUN apt install -y OpenSSL
+RUN apt update -y && apt install -y openssl
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 	-keyout /etc/nginx/ssl/inception.key \
 	-subj "/C=FR/ST=AURA/L=Lyon/O=42/OU=42/CN=yusengok.42.fr/UID=yusengok"
