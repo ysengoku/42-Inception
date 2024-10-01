@@ -30,7 +30,10 @@ RUN mkdir -p /var/run/nginx
 RUN rm -f /etc/nginx/nginx.conf
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
+EXPOSE 443
+
+RUN chmod 755 /var/www/html
+RUN chown -R www-data:www-data /var/www/html
+
 # To ensure Nginx stays in the foreground
 CMD ["nginx", "-g", "daemon off;"]
-
-EXPOSE 443
