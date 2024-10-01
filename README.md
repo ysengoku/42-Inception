@@ -13,8 +13,21 @@ Install
 
 ## Docker commands
 ```bash
-# Execute a shell within a running Docker container named <container_name>
+docker ps
+# Show active containers status
+
+docker ps -a
+# Show all containers status
+```
+
+```bash
+docker logs <container_name>
+# Show the logs of <container_name> (both standard output and error)
+```
+
+```bash
 docker exec -it <container_name> bash
+# Execute a shell within a running Docker container named <container_name>
 ```
 
 ## References
