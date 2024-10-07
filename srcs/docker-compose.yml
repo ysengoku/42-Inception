@@ -14,5 +14,5 @@ services:
     env_file: .env
     build: requirements/mariadb/.
     ports:
-      - "3307:3306"
+      - "3306"
     restart: always
