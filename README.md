@@ -46,7 +46,7 @@ To see all instructions: [Dockerfile reference](https://docs.docker.com/referenc
 
 ### FROM
 Specifies the base image for the Docker image to create. It's the first mandatory instruction of Dockerfile.   
-```
+```bash
 FROM debian:bullseye
 # This example means we use debian version 11 (bullseye)
 ```   
@@ -55,7 +55,7 @@ Set environment variables.
 
 ### RUN
 Execute build commands.   
-```
+```bash
 # Examples
 RUN apt -y update
 RUN install -y nginx
@@ -63,8 +63,9 @@ RUN install -y nginx
 
 ### COPY
 Copy files and directories.
-```
-COPY <original> <to copy>
+```bash
+COPY <original> <copy to>
+
 # EXample
 COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
 ```
