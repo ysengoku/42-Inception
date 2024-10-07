@@ -16,3 +16,11 @@ services:
     ports:
       - "3306"
     restart: always
+
+  wordpress:
+    container_name: wordpress
+    env_file: .env
+    build: requirements/wordpress/.
+    restart: always
+    depends_on:
+      - mariadb
