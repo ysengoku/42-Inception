@@ -14,9 +14,6 @@ COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 EXPOSE 3306
 
 # Execute initialization script
-#COPY ./tools/db_init.sh .
-#RUN chmod +x db_init.sh
-#CMD ["bash", "db_init.sh"]
 COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
 RUN chmod +x /usr/local/bin/db_init.sh
 ENTRYPOINT ["/usr/local/bin/db_init.sh"]
