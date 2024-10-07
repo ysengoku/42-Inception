@@ -42,6 +42,7 @@ docker exec -it <container_name> bash
 ```
 
 ## Some Dockerfile instructions
+To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
 
 ### FROM
 Specifies the base image for the Docker image to create. It's the first mandatory instruction of Dockerfile.   
@@ -74,7 +75,6 @@ Describe which ports the container is listening on.
 ### ENTRYPOINT
 Specify default executable.   
    
-To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
