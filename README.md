@@ -62,13 +62,18 @@ RUN install -y nginx
 
 ### COPY
 Copy files and directories.
+```
+COPY <original> <to copy>
+# EXample
+COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
+```
 
 ### EXPOSE
+Describe which ports the container is listening on.   
 
-
-
-`ENTRYPOINT`
-
+### ENTRYPOINT
+Specify default executable.   
+   
 To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
 
 ## References
