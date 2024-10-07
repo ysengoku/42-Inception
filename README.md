@@ -3,7 +3,7 @@
 ## Local development environnment   
 ### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
 - Base Memory: 4096 MB
-- Storage: VDI 20.80 GB
+- Storage: VDI 20.00 GB
 
 ### Install necessary applications
 ```bash
