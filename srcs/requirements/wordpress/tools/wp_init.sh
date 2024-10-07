@@ -23,3 +23,5 @@ wp user create $WP_USER $WP_ADMIN_EMAIL \
 				--role=author \
 				--user_pass=$WP_USER_PASSWORD \
 				--porcelain
+
+exec /usr/sbin/php-fpm7.4 -F
