@@ -5,8 +5,15 @@
 - Base Memory: 4096 MB
 - Storage: VDI 20.00 GB
 
-### Install necessary applications
+### Install necessary applications on VM
 ```bash
+# Install git
+sudo apt-get update & apt-get upgrade -y
+sudo apt install git
+# Clone this repository
+git clone <this repository>
+
+# Execute config script
 bash vm_config.sh
 ```
 This configuration file includes: 
@@ -33,6 +40,36 @@ docker logs <container_name>
 docker exec -it <container_name> bash
 # Execute a shell within a running Docker container named <container_name>
 ```
+
+## Some Dockerfile instructions
+
+### FROM
+Specifies the base image for the Docker image to create. It's the first mandatory instruction of Dockerfile.   
+```
+FROM debian:bullseye
+# This example means we use debian version 11 (bullseye)
+```   
+### ENV
+Set environment variables.
+
+### RUN
+Execute build commands.   
+```
+# Examples
+RUN apt -y update
+RUN install -y nginx
+```
+
+### COPY
+Copy files and directories.
+
+### EXPOSE
+
+
+
+`ENTRYPOINT`
+
+To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
