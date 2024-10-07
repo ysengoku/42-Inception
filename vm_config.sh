@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install necessary packages
-sudo apt install git make vim
+sudo apt install make vim
 
 # Add Docker's official GPG key
 #curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
