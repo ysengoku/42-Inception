@@ -1,26 +1,65 @@
 services:
-  nginx:
-    image: nginx  #image name
-    container_name: nginx
-    env_file: .env
-    build: requirements/nginx/. #path to Dockerfile
-    ports:
-      - "443:443"
-    restart: always
 
   mariadb:
     image: mariadb
     container_name: mariadb
     env_file: .env
-    build: requirements/mariadb/.
-    ports:
+    volumes:
+      - mariadb:/var/lib/mysql # path to the volume
+    networks:
+      - inception
+    build: requirements/mariadb/. # path to Dockerfile
+    expose:
       - "3306"
     restart: always
 
   wordpress:
+    image: wordpress
     container_name: wordpress
     env_file: .env
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
     build: requirements/wordpress/.
-    restart: always
+    restart: on-failure
     depends_on:
-      - mariadb
+      - mariadb # Wordpress starts after mariadb
+    expose:
+      - "9000"
+
+  nginx:
+    image: nginx  # image name
+    container_name: nginx
+    env_file: .env
+    volumes:
+      - wordpress:/var/www/wordpress
+    networks:
+      - inception
+    depends_on:
+      - wordpress # Nginx starts after wordpress
+    build: requirements/nginx/.
+    ports:
+      - "443:443"
+    restart: on-failure
+
+volumes:
+  mariadb:
+    name: db
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/yusengok/data/db
+  
+  wordpress:
+    name: wordpress
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/yusengok/data/wordpress
+
+networks:
+  inception:
+    driver: bridge # Create a private internal network using the bridge driver

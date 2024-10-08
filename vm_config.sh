@@ -31,6 +31,12 @@ if [ ! -d "/home/$USER/data" ]; then \
 	echo "data directory created successfully"; \
 fi
 
+# Set redirection to the VM's IP address
+sudo cp /etc/hosts :etc/hosts.backup
+sudo chmod 777 /etc/hosts
+sudo echo "127.0.0.1 yusengok.42.fr" >> /etc/hosts
+sudo chmod 644 /etc/hosts
+
 # Add User to docker group
 sudo usermod -aG docker $USER
 sudo reboot
