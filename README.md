@@ -22,7 +22,7 @@ This configuration file includes:
 - vim
 - docker-ce
 
-## Some useful docker commands
+## Useful docker commands
 ```bash
 docker ps
 # Show active containers status
@@ -37,11 +37,19 @@ docker logs <container_name>
 ```
 
 ```bash
+docker network ls
+# List all networks
+
+docker network inspect <network name>
+# Inspect a network status
+```
+
+```bash
 docker exec -it <container_name> bash
 # Execute a shell within a running Docker container named <container_name>
 ```
 
-## Some Dockerfile instructions
+## Dockerfile instructions
 To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
 
 ### FROM
