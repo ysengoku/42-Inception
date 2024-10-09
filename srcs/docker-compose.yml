@@ -8,20 +8,27 @@ services:
       - mariadb:/var/lib/mysql # path to the volume
     networks:
       - inception
-    build: requirements/mariadb/. # path to Dockerfile
+    build: 
+      context: requirements/mariadb/
+      dockerfile: Dockerfile
+      args:
+        - SQL_DATABASE=${SQL_DATABASE}
+        - SQL_USER=${SQL_USER}
+        - SQL_PASSWORD=${SQL_PASSWORD}
+        - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
     expose:
       - "3306"
-    restart: always
+    restart: unless-stopped
 
   wordpress:
     image: wordpress
     container_name: wordpress
     env_file: .env
-    environment:
-        WORDPRESS_DB_HOST: mariadb:3306
-        WORDPRESS_DB_USER: user
-        WORDPRESS_DB_PASSWORD: userpassword
-        WORDPRESS_DB_NAME: wordpress
+    #environment:
+        #WORDPRESS_DB_HOST: mariadb:3306
+        #WORDPRESS_DB_USER: user
+        #WORDPRESS_DB_PASSWORD: userpassword
+        #WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress:/var/www/wordpress
     networks:
