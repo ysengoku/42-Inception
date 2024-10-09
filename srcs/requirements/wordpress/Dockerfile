@@ -5,7 +5,12 @@ WORKDIR /var/www
 
 # Install wordpress & php
 RUN apt update -y && apt upgrade -y
-RUN	apt-get install -y wget php7.4 php-fpm php-mysql mariadb-client && apt update -y
+RUN	apt-get install -y wget \
+	php7.4 \
+	php-fpm \
+	php-mysql \
+	mariadb-client \
+	&& apt update -y
 RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz && \
 	tar -xzf wordpress-6.6.2.tar.gz && \
 	rm wordpress-6.6.2.tar.gz && \
