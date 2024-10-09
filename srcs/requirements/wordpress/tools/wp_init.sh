@@ -11,6 +11,7 @@ if [ ! -e /var/www/wordpress/wp-config.php ]; then
 				--dbpass=$SQL_PASSWORD \
 				--dbhost=mariadb:3306 \
 				--path='/var/www/wordpress'
+fi
 
 wp core install --url=$DOMAIN_NAME \
 				--title=$SITE_TITLE \
