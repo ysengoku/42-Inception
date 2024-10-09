@@ -2,8 +2,7 @@
 
 # Start the database on background
 #service mysql start;
-# Initialize MariaDB data directory (if not already initialized)
-mysql_install_db --user=mysql --basedir=/usr --datadir=/var/lib/mysql
+#exec mysqld --skip-networking --datadir='/var/lib/mysql'
 
 # Check if the required environment variables are set
 if  [ -z "$SQL_ROOT_PASSWORD" ] || [ -z "$SQL_USER" ] || [ -z "$SQL_PASSWORD" ] || [ -z "$SQL_DATABASE" ]; then
@@ -14,10 +13,9 @@ fi
 # Wait for the database to start
 DB_HOST="${DB_HOST:-localhost}"
 until mysqladmin ping -h"${DB_HOST}" --silent; do
-	#echo "Waiting for MariaDB to start...";
+	echo "Waiting for MariaDB to start...";
 	sleep 1;
 done
-echo "MariaDB started successfully."
 
 # Set the root password
 mysql -e "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';"
