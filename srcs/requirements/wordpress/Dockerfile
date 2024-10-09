@@ -6,14 +6,14 @@ WORKDIR /var/www
 # Install wordpress & php
 RUN apt update -y && apt upgrade -y
 RUN	apt-get install -y wget php7.4 php-fpm php-mysql mariadb-client && apt update -y
-RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz && \
-	tar -xzf wordpress-6.6.2.tar.gz && \
+RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz -P /var/www && \
+	cd /var/www && tar -xzf wordpress-6.6.2.tar.gz && \
 	rm wordpress-6.6.2.tar.gz && \
 	chown -R www-data:www-data wordpress && \
 	rm -rf /var/lib/apt/lists/*
 
 # Change ownership
-#RUN chown -R root:root /var/www/wordpress
+RUN chown -R root:root /var/www/wordpress
 
 # Update PHP configuration
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
