@@ -45,8 +45,11 @@ docker network inspect <network name>
 ```
 
 ```bash
-docker exec -it <container_name> bash
+docker exec -it <container_name> /bin/bash
 # Execute a shell within a running Docker container named <container_name>
+
+docker run -it --entrypoint /bin/bash <container_name>
+# If the container is not running
 ```
 
 ## Dockerfile instructions
