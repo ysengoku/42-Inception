@@ -5,15 +5,15 @@ all: up
 up:
 	@mkdir -p $(HOME)/data/db
 	@mkdir -p $(HOME)/data/wordpress
-	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
+	@DOCKER_COMPOSE_VERBOSE=1 docker compose -f $(COMPOSE_FILE) -p inception up --build -d
 
 down:
-	@docker compose -f $(COMPOSE_FILE) down --rmi all -v --remove-orphans || true
+	@docker compose --log-level DEBUG -f $(COMPOSE_FILE) down --rmi all -v --remove-orphans || true
 	@docker ps -a -q --filter "name=inception_" | xargs --no-run-if-empty docker stop || true
 	@docker ps -a -q --filter "name=inception_" | xargs --no-run-if-empty docker rm || true
 	@docker volume rm -f db || true
 	@docker volume rm -f wordpress || true
-	#@docker compose -f $(COMPOSE_FILE) down --rmi all -v --remove-orphans
+# @docker compose -f $(COMPOSE_FILE) down --rmi all -v --remove-orphans
 
 start:
 	@docker compose -f $(COMPOSE_FILE) start
