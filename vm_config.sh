@@ -32,7 +32,7 @@ if [ ! -d "/home/$USER/data" ]; then \
 fi
 
 # Set redirection to the VM's IP address
-sudo cp /etc/hosts :etc/hosts.backup
+sudo cp /etc/hosts /etc/hosts.backup
 sudo chmod 777 /etc/hosts
 sudo echo "127.0.0.1 yusengok.42.fr" >> /etc/hosts
 sudo chmod 644 /etc/hosts
