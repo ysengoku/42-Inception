@@ -11,10 +11,10 @@ down:
 	@docker compose -f $(COMPOSE_FILE) -p inception down --rmi all -v --remove-orphans
 
 start:
-	@docker compose -f $(COMPOSE_FILE) start
+	@docker compose -f $(COMPOSE_FILE) -p inception start
 
 stop:
-	@docker compose -f $(COMPOSE_FILE) stop
+	@docker compose -f $(COMPOSE_FILE) -p inception stop
 
 clean:	down
 	@docker system prune -f -a --volumes
