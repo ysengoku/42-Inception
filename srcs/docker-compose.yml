@@ -12,11 +12,11 @@ services:
     build: 
       context: requirements/mariadb/
       dockerfile: Dockerfile
-        #environment:
-        #SQL_DATABASE: ${SQL_DATABASE}
-        #SQL_USER: ${SQL_USER}
-        #SQL_PASSWORD: ${SQL_PASSWORD}
-        #SQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+      args:
+        - SQL_DATABASE=${SQL_DATABASE}
+        - SQL_USER=${SQL_USER}
+        - SQL_PASSWORD=${SQL_PASSWORD}
+        - SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
     expose:
       - "3306"
     restart: unless-stopped
