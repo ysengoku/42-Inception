@@ -12,14 +12,12 @@ RUN apt update -y && apt upgrade -y && \
 #COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/.
 
-RUN cat > ./tools/init.sql <<EOF
-CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;
-CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';
-GRANT ALL PRIVILEGES ON *.* TO \`${SQL_USER}\`@'%' WITH GRANT OPTION;
-ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';
-FLUSH PRIVILEGES;
-EOF
-COPY ./tools/init.sql /etc/mysql/init.sql
+RUN echo "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;" > /etc/mysql/init.sql && \
+    echo "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';" >> /etc/mysql/init.sql && \
+    echo "GRANT ALL PRIVILEGES ON *.* TO \`${SQL_USER}\`@'%' WITH GRANT OPTION;" >> /etc/mysql/init.sql && \
+    echo "ALTER USER 'root'@'localhost' IDENTIFIED BY '${SQL_ROOT_PASSWORD}';" >> /etc/mysql/init.sql && \
+    echo "FLUSH PRIVILEGES;" >> /etc/mysql/init.sql
+#COPY ./tools/init.sql /etc/mysql/init.sql
 
 RUN mkdir /run/mysqld
 
