@@ -2,7 +2,7 @@
 
 # this is read by the standalone daemon and embedded servers
 [server]
-init_file = /etc/mysql/init.sql
+#init_file = /etc/mysql/init.sql
 
 # this is only for the mysqld standalone daemon
 [mysqld]
@@ -11,7 +11,7 @@ init_file = /etc/mysql/init.sql
 # * Basic Settings
 #
 
-user                    = root
+user                    = mysql
 pid-file                = /run/mysqld/mysqld.pid
 basedir                 = /usr
 datadir                 = /var/lib/mysql
@@ -20,10 +20,8 @@ lc-messages-dir         = /usr/share/mysql
 lc-messages             = en_US
 skip-external-locking
 
-#datadir = /var/lib/mysql
 #socket  = /run/mysqld/mysqld.sock
-port = 3306
-#user = mysql
+#port = 3306
 
 # Broken reverse DNS slows down connections considerably and name resolve is
 # safe to skip if there are no "host by domain name" access grants
@@ -32,7 +30,6 @@ port = 3306
 # Instead of skip-networking the default is now to listen only on
 # localhost which is more compatible and is not less secure.
 bind-address            = 0.0.0.0
-# bind-address            = 127.0.0.1
 
 #
 # * Fine Tuning
@@ -75,7 +72,7 @@ bind-address            = 0.0.0.0
 #       other settings you may need to change.
 #server-id              = 1
 #log_bin                = /var/log/mysql/mysql-bin.log
-#expire_logs_days        = 10
+expire_logs_days        = 10
 #max_binlog_size        = 100M
 
 #
@@ -95,8 +92,8 @@ bind-address            = 0.0.0.0
 
 # MySQL/MariaDB default is Latin1, but in Debian we rather default to the full
 # utf8 4-byte character set. See also client.cnf
-#character-set-server  = utf8mb4
-#collation-server      = utf8mb4_general_ci
+character-set-server  = utf8mb4
+collation-server      = utf8mb4_general_ci
 
 #
 # * InnoDB
