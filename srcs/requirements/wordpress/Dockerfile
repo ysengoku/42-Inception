@@ -8,7 +8,7 @@ RUN apt update -y && apt upgrade -y && \
 	apt-get install -y wget \
 	php7.4 \
 	php-fpm \
-	php-mysqli \
+	php-mysql \
 	mariadb-client \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
