@@ -16,6 +16,9 @@ start:
 stop:
 	@docker compose -f $(COMPOSE_FILE) -p inception stop
 
+config:
+	@docker compose -f $(COMPOSE_FILE) -p inception config
+
 clean:	down
 	@docker system prune -f -a --volumes
 
