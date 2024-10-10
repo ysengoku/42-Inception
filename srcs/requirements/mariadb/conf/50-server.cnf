@@ -1,8 +1,8 @@
 # Use it for options that only the server (but not clients) should see
 
 # this is read by the standalone daemon and embedded servers
-[server]
-init_file = /etc/mysql/init.sql
+#[server]
+#init_file = /etc/mysql/init.sql
 
 # this is only for the mysqld standalone daemon
 [mysqld]
@@ -11,15 +11,19 @@ init_file = /etc/mysql/init.sql
 # * Basic Settings
 #
 
-user                    = root
-# user                    = mysql
-pid-file                = /run/mysqld/mysqld.pid
-basedir                 = /usr
-datadir                 = /var/lib/mysql
-tmpdir                  = /tmp
-lc-messages-dir         = /usr/share/mysql
-lc-messages             = en_US
-skip-external-locking
+#user                    = root
+#pid-file                = /run/mysqld/mysqld.pid
+#basedir                 = /usr
+#datadir                 = /var/lib/mysql
+#tmpdir                  = /tmp
+#lc-messages-dir         = /usr/share/mysql
+#lc-messages             = en_US
+#skip-external-locking
+
+datadir = /var/lib/mysql
+socket  = /run/mysqld/mysqld.sock
+port = 3306
+user = mysql
 
 # Broken reverse DNS slows down connections considerably and name resolve is
 # safe to skip if there are no "host by domain name" access grants
@@ -71,7 +75,7 @@ bind-address            = 0.0.0.0
 #       other settings you may need to change.
 #server-id              = 1
 #log_bin                = /var/log/mysql/mysql-bin.log
-expire_logs_days        = 10
+#expire_logs_days        = 10
 #max_binlog_size        = 100M
 
 #
@@ -91,8 +95,8 @@ expire_logs_days        = 10
 
 # MySQL/MariaDB default is Latin1, but in Debian we rather default to the full
 # utf8 4-byte character set. See also client.cnf
-character-set-server  = utf8mb4
-collation-server      = utf8mb4_general_ci
+#character-set-server  = utf8mb4
+#collation-server      = utf8mb4_general_ci
 
 #
 # * InnoDB
@@ -105,26 +109,14 @@ collation-server      = utf8mb4_general_ci
 #innodb_buffer_pool_size = 8G
 
 # this is only for embedded server
-[embedded]
+#[embedded]
 
 # This group is only read by MariaDB servers, not by MySQL.
 # If you use the same .cnf file for MySQL and MariaDB,
 # you can put MariaDB-only options here
-[mariadb]
+#[mariadb]
 
 # This group is only read by MariaDB-10.5 servers.
 # If you use the same .cnf file for MariaDB of different versions,
 # use this group for options that older servers don't understand
-[mariadb-10.5]
-
-# [mysqld]
-# user                    = root
-# pid-file                = /run/mysql/mysql.pid
-# socket                  = /run/mysqld/mysqld.sock
-# port                    = 3306
-# basedir                 = /usr
-# datadir                 = /var/lib/mysql
-# tmpdir                  = /tmp
-# bind-address            = 0.0.0.0
-# log_error               = /var/log/mysql/error.log
-
+#[mariadb-10.5]
