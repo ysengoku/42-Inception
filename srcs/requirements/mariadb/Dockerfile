@@ -12,6 +12,11 @@ RUN apt update -y && apt upgrade -y && \
 #COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/.
 
+ARG SQL_USER
+ARG SQL_DATABASE
+ARG SQL_PASSWORD
+ARG SQL_ROOT_PASSWORD
+
 RUN echo "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;" > /etc/mysql/init.sql && \
     echo "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';" >> /etc/mysql/init.sql && \
     echo "GRANT ALL PRIVILEGES ON *.* TO \`${SQL_USER}\`@'%' WITH GRANT OPTION;" >> /etc/mysql/init.sql && \
