@@ -24,11 +24,6 @@ services:
     image: wordpress
     container_name: wordpress
     env_file: .env
-    #environment:
-        #WORDPRESS_DB_HOST: mariadb:3306
-        #WORDPRESS_DB_USER: user
-        #WORDPRESS_DB_PASSWORD: userpassword
-        #WORDPRESS_DB_NAME: wordpress
     volumes:
       - wordpress:/var/www/wordpress
     networks:

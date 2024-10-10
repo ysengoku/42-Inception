@@ -17,3 +17,4 @@ EXPOSE 3306
 COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
 RUN chmod +x /usr/local/bin/db_init.sh
 ENTRYPOINT ["/usr/local/bin/db_init.sh"]
+CMD ["mysqld_safe"]
