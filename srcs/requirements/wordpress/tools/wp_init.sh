@@ -25,6 +25,7 @@ if [ ! -e /var/www/wordpress/wp-config.php ]; then
             --admin_email="${WP_ADMIN_EMAIL}" \
             --skip-email \
             --path
+fi
 
 mkdir -p /run/php
 chown www-data:www-data /run/php
