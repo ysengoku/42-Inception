@@ -1,8 +1,8 @@
 # Use it for options that only the server (but not clients) should see
 
 # this is read by the standalone daemon and embedded servers
-#[server]
-#init_file = /etc/mysql/init.sql
+[server]
+init_file = /etc/mysql/init.sql
 
 # this is only for the mysqld standalone daemon
 [mysqld]
@@ -11,19 +11,19 @@
 # * Basic Settings
 #
 
-#user                    = root
-#pid-file                = /run/mysqld/mysqld.pid
-#basedir                 = /usr
-#datadir                 = /var/lib/mysql
-#tmpdir                  = /tmp
-#lc-messages-dir         = /usr/share/mysql
-#lc-messages             = en_US
-#skip-external-locking
+user                    = root
+pid-file                = /run/mysqld/mysqld.pid
+basedir                 = /usr
+datadir                 = /var/lib/mysql
+tmpdir                  = /tmp
+lc-messages-dir         = /usr/share/mysql
+lc-messages             = en_US
+skip-external-locking
 
-datadir = /var/lib/mysql
-socket  = /run/mysqld/mysqld.sock
+#datadir = /var/lib/mysql
+#socket  = /run/mysqld/mysqld.sock
 port = 3306
-user = mysql
+#user = mysql
 
 # Broken reverse DNS slows down connections considerably and name resolve is
 # safe to skip if there are no "host by domain name" access grants
