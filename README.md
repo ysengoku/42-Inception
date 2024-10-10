@@ -51,6 +51,10 @@ docker exec -it <container_name> /bin/bash
 docker run -it --entrypoint /bin/bash <container_name>
 # If the container is not running
 ```
+```bash
+docker exec -it <mariadb container_name> mysql -u root -p<password>
+# Opens an interactive terminal session to the MariaDB instance allowing to execute SQL commands as the root user with the specified password.
+```
 
 ## Dockerfile instructions
 To see all instructions: [Dockerfile reference](https://docs.docker.com/reference/dockerfile/)   
@@ -86,12 +90,42 @@ Describe which ports the container is listening on.
 
 ### ENTRYPOINT
 Specify default executable.   
-   
+
+## SQL commands
+
+Before executing SQL commands, we should open an interactive terminal session to the MariaDB instance with `
+docker exec -it <mariadb container_name> mysql -u root -p<password>`
+
+```sql
+SHOW DATABASES;
+# Displays a list of all databases on the server.
+
+SELECT User, Host FROM mysql.user;
+# Show all users
+
+SHOW GRANTS FOR 'your_username'@'%';
+# Retrieve the privileges of a specified user for any host, localhost for the local machine
+```
+
+```sql
+CREATE DATABASE IF NOT EXISTS `your_database_name`;
+# Create a new database if it does not already exist
+
+CREATE USER IF NOT EXISTS 'your_username'@'%' IDENTIFIED BY 'your_password';
+# Create a new user if it does not already exist, allowing connections from any host ('%') with the specified password
+
+GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%' WITH GRANT OPTION;
+# Grant all privileges on all databases and tables to the new user. This also allows the user to grant privileges to others
+
+FLUSH PRIVILEGES;
+# Apply the changes
+```
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
 
-[Inception #42 project — PART I](https://medium.com/@ssterdev/inception-guide-42-project-part-i-7e3af15eb671)
+[Inception #42 project — PART I](https://medium.com/@ssterdev/inception-guide-42-project-part-i-7e3af15eb671)   
+[Inception #42 project — PART II](https://medium.com/@ssterdev/inception-42-project-part-ii-19a06962cf3b)
 
 [Dockerを用いたWordPress環境構築](https://qiita.com/ryhara/items/0581c03e82bd84c54a6f)
 
