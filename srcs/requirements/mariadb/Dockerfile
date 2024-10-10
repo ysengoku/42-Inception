@@ -9,12 +9,17 @@ RUN apt update -y && apt upgrade -y && \
 	rm -rf /var/lib/apt/lists/*
 
 # Update configuration
-COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+#COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/.
+COPY ./tools/init.sql /etc/mysql/init.sql
 
-EXPOSE 3306
+RUN mkdir /run/mysqld
+
+#EXPOSE 3306
 
 # Execute initialization script
-COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
-RUN chmod +x /usr/local/bin/db_init.sh
-ENTRYPOINT ["/usr/local/bin/db_init.sh"]
-CMD ["mysqld_safe"]
+#COPY ./tools/db_init.sh /usr/local/bin/db_init.sh
+#RUN chmod +x /usr/local/bin/db_init.sh
+#ENTRYPOINT ["/usr/local/bin/db_init.sh"]
+CMD ["mysql_instqll_db"]
+CMD ["mysqld"]
