@@ -6,7 +6,7 @@ services:
     env_file: .env
     volumes:
       - mariadb:/var/lib/mysql # path to the volume
-        #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - inception
     build: 
