@@ -6,17 +6,17 @@ services:
     env_file: .env
     volumes:
       - mariadb:/var/lib/mysql # path to the volume
-      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+        #- ./init.sql:/docker-entrypoint-initdb.d/init.sql
     networks:
       - inception
     build: 
       context: requirements/mariadb/
       dockerfile: Dockerfile
-    environment:
-      SQL_DATABASE: ${SQL_DATABASE}
-      SQL_USER: ${SQL_USER}
-      SQL_PASSWORD: ${SQL_PASSWORD}
-      SQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
+        #environment:
+        #SQL_DATABASE: ${SQL_DATABASE}
+        #SQL_USER: ${SQL_USER}
+        #SQL_PASSWORD: ${SQL_PASSWORD}
+        #SQL_ROOT_PASSWORD: ${SQL_ROOT_PASSWORD}
     expose:
       - "3306"
     restart: unless-stopped
@@ -26,7 +26,7 @@ services:
     container_name: wordpress
     env_file: .env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html/wordpress
     networks:
       - inception
     build: requirements/wordpress/.
@@ -42,7 +42,7 @@ services:
     container_name: nginx
     env_file: .env
     volumes:
-      - wordpress:/var/www/wordpress
+      - wordpress:/var/www/html/wordpress
     networks:
       - inception
     depends_on:
