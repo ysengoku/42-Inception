@@ -12,22 +12,17 @@ RUN apt update -y && apt upgrade -y && \
 	mariadb-client \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz -P /var/www/html && \
-	cd /var/www/html && tar -xzf wordpress-6.6.2.tar.gz && \
-	rm wordpress-6.6.2.tar.gz && \
-	chmod 755 /var/www/html/wordpress && chown -R www-data:www-data /var/www/html/wordpress
+#RUN wget https://wordpress.org/wordpress-6.6.2.tar.gz -P /var/www/html && \
+#	cd /var/www/html && tar -xzf wordpress-6.6.2.tar.gz && \
+#	rm wordpress-6.6.2.tar.gz && \
+#	chmod 755 /var/www/html/wordpress && chown -R www-data:www-data /var/www/html/wordpress
 
 # Update PHP configuration
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9000
 
-# Set up WP-CLI
-#RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && \
-#	chmod +x wp-cli.phar && \
-#	mv wp-cli.phar /usr/local/bin/wp
-
-# Update wordpress configuration
+# Set wordpress configuration
 COPY ./tools/wp_init.sh /usr/local/bin/wp_init.sh
 RUN chmod +x /usr/local/bin/wp_init.sh
 
