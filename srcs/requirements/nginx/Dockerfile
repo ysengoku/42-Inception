@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # Install nginx
 RUN apt update -y && apt upgrade -y
-RUN	apt install -y nginx net-tools && \
+RUN apt install -y nginx net-tools && \
 	rm -rf /var/lib/apt/lists/*
 
 # Configure TSL
@@ -31,10 +31,10 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
-# Set the permissions
-RUN chmod -R 755 /var/www/html
-# Set the ownership
-RUN chown -R www-data:www-data /var/www/html
-
 # To ensure Nginx stays in the foreground
 CMD ["nginx", "-g", "daemon off;"]
+
+# Set the permissions
+RUN chmod -R 755 /var/www/html/
+# Set the ownership
+RUN chown -R www-data:www-data /var/www/html/
