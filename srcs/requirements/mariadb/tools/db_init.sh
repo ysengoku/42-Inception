@@ -9,7 +9,8 @@ fi
 # Initialize the MySQL data directory and create the system tables
 # --user : The user that will own the data directory
 # --datadir : The directory where the data will be stored
-mysqld --initialize --user=mysql --datadir=/var/lib/mysql
+#mysqld --initialize --user=mysql --datadir=/var/lib/mysql
+mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 mkdir -p /run/mysqld /var/lib/mysql
 mkdir -p /run/mysql
