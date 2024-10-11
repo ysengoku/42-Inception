@@ -1,7 +1,7 @@
 FROM debian:bullseye
 
 # Set working directory
-WORKDIR /var/www
+#WORKDIR /var/www
 
 # Install wordpress & php
 RUN apt update -y && apt upgrade -y && \
