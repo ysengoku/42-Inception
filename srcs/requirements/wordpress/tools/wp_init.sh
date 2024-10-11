@@ -17,7 +17,8 @@ mv wp-cli.phar /usr/local/bin/wp
 sleep 10
 
 if [ ! -e /var/www/html/wp-config.php ]; then
-        wp core download --allow-root
+        #wp core download --allow-root
+	#cd /var/www/html/wordpress
 
         wp core config \
             --dbname="${SQL_DATABASE}" \
