@@ -12,7 +12,7 @@ mv wp-cli.phar /usr/local/bin/wp
 
 sleep 10
 
-if [ ! -e /var/www/wordpress/wp-config.php ]; then
+if [ ! -e /var/www/html/wp-config.php ]; then
         wp core download --allow-root
 
         wp core config \
