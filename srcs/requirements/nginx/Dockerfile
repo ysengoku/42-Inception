@@ -2,7 +2,7 @@ FROM debian:bullseye
 
 # Install nginx
 RUN apt update -y && apt upgrade -y
-RUN	apt install -y nginx && \
+RUN	apt install -y nginx net-tools && \
 	rm -rf /var/lib/apt/lists/*
 
 # Configure TSL
@@ -27,7 +27,6 @@ RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 
 # Congigure Nginx
 RUN mkdir -p /var/run/nginx
-RUN rm -f /etc/nginx/nginx.conf
 COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
