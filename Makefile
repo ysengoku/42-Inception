@@ -3,7 +3,7 @@ COMPOSE_FILE	= ./srcs/docker-compose.yml
 all: up
 
 up:
-	@mkdir -p $(HOME)/data/db
+	@mkdir -p $(HOME)/data/mariadb
 	@mkdir -p $(HOME)/data/wordpress
 	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
 
@@ -23,7 +23,7 @@ clean:	down
 	@docker system prune -f -a --volumes
 
 fclean: clean
-	@sudo rm -rf $(HOME)/data/db
+	@sudo rm -rf $(HOME)/data/mariadb
 	@sudo rm -rf $(HOME)/data/wordpress
 
 re: fclean all

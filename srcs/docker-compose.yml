@@ -4,12 +4,12 @@ networks:
 
 volumes:
   mariadb:
-    name: db
+    name: mariadb
     driver: local
     driver_opts:
       type: none
       o: bind
-      device: /home/yusengok/data/db
+      device: /home/yusengok/data/mariadb
   
   wordpress:
     name: wordpress
