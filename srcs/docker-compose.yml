@@ -49,7 +49,6 @@ services:
       - mariadb # Wordpress starts after mariadb
     expose:
       - "9000"
-    #user: "www-data"
 
   nginx:
     image: nginx  # image name
@@ -65,4 +64,14 @@ services:
       - wordpress # Nginx starts after wordpress
     ports:
       - "443:443"
+    restart: on-failure
+  
+  adminer:
+    image: adminer
+    container_name: adminer
+    build: requirements/bonus/adminer/.
+    networks:
+      - inception
+    ports:
+      - "8080:8080"
     restart: on-failure
