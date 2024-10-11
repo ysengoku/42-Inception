@@ -9,7 +9,7 @@ fi
 # Initialize the MySQL data directory and create the system tables
 # --user : The user that will own the data directory
 # --datadir : The directory where the data will be stored
-mysqld_install_db --user=mysql --datadir=/var/lib/mysql
+mysqld --initialize --user=mysql --datadir=/var/lib/mysql
 
 mkdir -p /run/mysqld /var/lib/mysql
 mkdir -p /run/mysql
@@ -22,7 +22,7 @@ mysqld --user=mysql --datadir=/var/lib/mysql &
 pid=$!
 
 # Wait for the database to start
-until mysqladmin -u root -p${SQL_ROOT_PASSWORD} >/dev/null 2>&1; do
+until mysqladmin ping -u root -p${SQL_ROOT_PASSWORD} >/dev/null 2>&1; do
 	echo "Waiting for MariaDB to start...";
 	sleep 1;
 done
