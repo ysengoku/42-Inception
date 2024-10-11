@@ -11,6 +11,7 @@ fi
 # --datadir : The directory where the data will be stored
 mysqld_install_db --user=mysql --datadir=/var/lib/mysql
 
+mkdir -p /run/mysqld /var/lib/mysql
 mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql

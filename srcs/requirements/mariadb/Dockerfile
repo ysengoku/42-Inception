@@ -11,7 +11,7 @@ RUN apt update -y && apt upgrade -y && \
 # Update configuration
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
-RUN mkdir -p /run/mysqld /var/lib/mysql
+#RUN mkdir -p /run/mysqld /var/lib/mysql
 #RUN mkdir -p /var/mysql
 #RUN chown -R mysql:mysql /run/mysqld /var/lib/mysql
 
