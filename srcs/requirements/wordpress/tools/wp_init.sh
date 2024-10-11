@@ -1,6 +1,10 @@
 #!/bin/bash
 
-mkdir -p /var/www/html && cd /var/www/html
+mkdir -p /var/www/html
+chown -R www-data:www-data /var/www/html
+chmod -R 755 /var/www/html
+cd /var/www/html
+
 wget https://wordpress.org/wordpress-6.6.2.tar.gz && \
 	tar -xzf wordpress-6.6.2.tar.gz && \
 	rm wordpress-6.6.2.tar.gz && \
