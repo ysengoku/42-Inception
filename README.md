@@ -10,8 +10,6 @@
 # Install git
 sudo apt-get update & apt-get upgrade -y
 sudo apt install git
-# Clone this repository
-git clone <this repository>
 
 # Execute config script
 bash vm_config.sh
