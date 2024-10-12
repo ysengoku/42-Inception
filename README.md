@@ -5,7 +5,7 @@
 - Base Memory: 4096 MB
 - Storage: VDI 20.00 GB
 
-### Install necessary applications on VM
+### Install necessary applications and set up VM
 ```bash
 # Install git
 sudo apt-get update & apt-get upgrade -y
@@ -14,11 +14,6 @@ sudo apt install git
 # Execute config script
 bash vm_config.sh
 ```
-This configuration file includes: 
-- git
-- make
-- vim
-- docker-ce
 
 ## Useful docker commands
 ```bash
