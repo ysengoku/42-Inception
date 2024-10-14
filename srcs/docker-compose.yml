@@ -72,6 +72,8 @@ services:
     build: requirements/bonus/adminer/.
     networks:
       - inception
+    depends_on:
+      - mariadb
     ports:
       - "8080:8080"
     restart: on-failure
