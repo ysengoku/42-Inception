@@ -3,6 +3,7 @@ COMPOSE_FILE	= ./srcs/docker-compose.yml
 all: up
 
 up:
+	@mkdir -p $(HOME)/data
 	@mkdir -p $(HOME)/data/mariadb
 	@mkdir -p $(HOME)/data/wordpress
 	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
