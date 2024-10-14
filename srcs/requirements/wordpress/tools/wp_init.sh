@@ -2,13 +2,7 @@
 
 mkdir -p /var/www/html
 cd /var/www/html
-#chown -R www-data:www-data /var/www/html
 #chmod -R 755 /var/www/html
-
-#wget https://wordpress.org/wordpress-6.6.2.tar.gz && \
-#	tar -xzf wordpress-6.6.2.tar.gz && \
-#	rm wordpress-6.6.2.tar.gz && \
-#	chmod 755 /var/www/html/wordpress && chown -R www-data:www-data /var/www/html/wordpress
 
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
