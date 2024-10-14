@@ -49,7 +49,6 @@ services:
       - mariadb # Wordpress starts after mariadb
     expose:
       - "9000"
-    #user: "www-data"
 
   nginx:
     image: nginx  # image name
