@@ -1,12 +1,12 @@
 FROM debian:bullseye
 
 # Install wordpress & php
-RUN apt update -y && apt upgrade -y && \
-	apt-get install -y wget \
+RUN apt update -y && apt upgrade -y && apt-get install -y \
+	mariadb-client \
 	php7.4 \
 	php-fpm \
 	php-mysql \
-	mariadb-client \
+	wget \
 	&& apt-get clean && rm -rf /var/lib/apt/lists/*
 
 EXPOSE 9000
