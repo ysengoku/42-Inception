@@ -4,11 +4,12 @@ FROM debian:bullseye
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Install MariaDB
-RUN apt update -y && apt upgrade -y && \
-	apt-get install -y mariadb-server iputils-ping && \
-	rm -rf /var/lib/apt/lists/*
+RUN apt update -y && apt upgrade -y && apt-get install -y \
+	mariadb-server \
+	iputils-ping \
+	&& rm -rf /var/lib/apt/lists/*
 
-# Update configuration
+# Update configuration file
 COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
 
 # Execute initialization script
