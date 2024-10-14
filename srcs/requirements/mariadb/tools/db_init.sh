@@ -9,7 +9,6 @@ fi
 # Initialize the MySQL data directory and create the system tables
 # --user : The user that will own the data directory
 # --datadir : The directory where the data will be stored
-#mysqld --initialize --user=mysql --datadir=/var/lib/mysql
 mysql_install_db --user=mysql --datadir=/var/lib/mysql
 
 mkdir -p /run/mysqld /var/lib/mysql
@@ -17,7 +16,7 @@ mkdir -p /run/mysql
 chown -R mysql:mysql /run/mysqld
 chown -R mysql:mysql /var/lib/mysql
 
-# Start the MySQL server in background (& : as a daemon)
+# Start the MySQL server
 mysqld --user=mysql --datadir=/var/lib/mysql &
 # Get the pid of the MySQL server
 pid=$!
