@@ -1,19 +1,10 @@
 # Inception
 
-## Local development environnment   
-### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
-- Base Memory: 4096 MB
-- Storage: VDI 20.00 GB
+## Docker
 
-### Install necessary applications and set up VM
-```bash
-# Install git
-sudo apt-get update & apt-get upgrade -y
-sudo apt install git
-
-# Execute config script
-bash vm_config.sh
-```
+- How Docker and docker compose work   
+- Docker vs VM
+- The difference between a Docker image used with docker compose and without docker compose   
 
 ## Useful docker commands
 ```bash
@@ -200,7 +191,22 @@ Admin page
 
 User login   
 `https://login.42.fr/wp-login.php`
- 
+
+
+## Local development environnment   
+### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
+- Base Memory: 4096 MB
+- Storage: VDI 20.00 GB
+
+### Install necessary applications and set up VM
+```bash
+# Install git
+sudo apt-get update & apt-get upgrade -y
+sudo apt install git
+
+# Execute config script
+bash vm_config.sh
+```
 
 ## Structure of the project
 ```
