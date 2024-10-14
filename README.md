@@ -1,10 +1,11 @@
 # Inception
 
 ## Docker
+Docker is a plateforme which alows applications to run in isolated environments called containers. Containers package everything needed for the application, including software, libralies and configuration files, ensuring that application behaves the same across different environments. This helps reduce issues caused by differences between development and production environments. While similar to virtual machine, Dcoker containers are more lightweight and resource-efficient.      
 
-- How Docker and docker compose work   
-- Docker vs VM
-- The difference between a Docker image used with docker compose and without docker compose   
+### Dcoker compose
+
+- The difference between with docker compose and without docker compose   
 
 ## Useful docker commands
 ```bash
