@@ -200,7 +200,34 @@ Admin page
 
 User login   
 `https://login.42.fr/wp-login.php`
+ 
 
+## Structure of the project
+```
+Root   
+├── Makefile   
+└── srcs   
+    ├── docker-compose.yml   
+    ├── .env   
+    │   
+    └── requirements   
+        ├── Nginx   
+        │   ├── Dockerfile   
+        │   └── conf   
+        │       └── nginx.conf   
+        ├── MariaDB   
+        │   ├── Dockerfile   
+        │   └── conf   
+        │   │   └── 50-server.cnf   
+        │   └── tools   
+        │       └── db_init.sh   
+        └── WordPress   
+            ├── Dockerfile   
+            └── conf   
+            │   └── www.conf   
+            └── tools   
+                └── wp_init.sh   
+```
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
