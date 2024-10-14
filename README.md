@@ -76,7 +76,6 @@ Execute build commands.
 RUN apt -y update
 RUN install -y nginx
 ```
-
 ### COPY
 Copy files and directories.
 ```bash
@@ -122,6 +121,21 @@ FLUSH PRIVILEGES;
 # Apply the changes
 ```
 
+## Docker Network
+Docker network allows containers to communicate each other and with the outside. It isolate and secure container communications.   
+
+Containers attached to the same network can communicate with each other using container names as hotsnames. For example, in this project, `wordpress` can access `nginx` using the hostname `nginx`.   
+
+Networks can be defined within docker-compose files:   
+```yml
+# In docker-compose.yml
+networks:
+ inception: # network name
+  driver: bridge
+
+# Bridge is the default network driver. It creates a private internal network to the host. Containers on this network can communicate each other and the host.
+```
+[More about network drivers](https://docs.docker.com/engine/network/drivers/)
 
 ## Nginx
 
@@ -158,12 +172,35 @@ openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 	#/UID=login: ユーザ識別子 (User ID)
 ```
 
+Test SSL configuration
+```bash
+# Try to access with insecure SSL connections (-k option)
+curl -k https://login.42.fr
+
+# Check logs
+docker exec -it nginx bash
+cat /var/log/nginx/error.log
+cat /var/log/nginx/access.log
+```
+
+## MariaDB
+Login to database
+```bash
+# Access to mariadb container's shell
+docker exec -it mariadb bash
+
+# Login to MariaDB
+mysql -u root -p<password> # As root
+mysql -u <user name> -p<password> # As User
+```
+
 ## Wordpress
 Admin page   
 `https://login.42.fr/wp-admin`   
 
 User login   
 `https://login.42.fr/wp-login.php`
+
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
