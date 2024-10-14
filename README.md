@@ -38,6 +38,14 @@ docker network inspect <network name>
 ```
 
 ```bash
+docker volume ls
+# List all volumes
+
+docker volume inspect <volume name>
+# Inspect a volume status
+```
+
+```bash
 docker exec -it <container_name> /bin/bash
 # Execute a shell within a running Docker container named <container_name>
 
@@ -113,6 +121,49 @@ GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%' WITH GRANT OPTION;
 FLUSH PRIVILEGES;
 # Apply the changes
 ```
+
+
+## Nginx
+
+### OpenSSL
+Generate a self-signed SSL certification and private key   
+```bash
+openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
+	-keyout /etc/nginx/ssl/inception.key \
+	-subj "/C=FR/ST=AURA/L=Lyon/O=42/OU=42/CN=yusengok.42.fr/UID=yusengok"
+
+# openssl req:
+# Subcommand for certificate request processing (to generate a new certificate)
+
+# -x509:
+# This option specifies that a self-signed certificate is to be generated rather than a certificate signing request (CSR).
+
+# -nodes:
+# This option instructs OpenSSL to create the private key without securing it with a passphrase. "nodes" stands for "no DES", which historically meant not to encrypt the private key with DES.
+
+# -out /etc/nginx/ssl/inception.crt:
+# This option specifies the output file for the generated certificate. In this case, the certificate is saved to /etc/nginx/ssl/inception.crt.
+
+# -keyout /etc/nginx/ssl/inception.key:
+# This option specifies the output file for the generated private key. Here, the private key is saved to /etc/nginx/ssl/inception.key.
+
+# -subj "/C=FR/ST=AURA/L=Lyon/O=42/OU=42/CN=login.42.fr/UID=login":
+# This option sets the subject field of the certificate with specific details.。
+	#/C=FR: Country
+	#/ST=AURA: State
+	#/L=Lyon: Locality (City or town name)
+	#/O=42: Organization Name
+	#/OU=42: Organizational Unit Name
+	#/CN=login.42.fr: Common Name. (Typically the domain name for which the certificate is valid)
+	#/UID=login: ユーザ識別子 (User ID)
+```
+
+## Wordpress
+Admin page   
+`https://login.42.fr/wp-admin`   
+
+User login   
+`https://login.42.fr/wp-login.php`
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
