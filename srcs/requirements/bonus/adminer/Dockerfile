@@ -1,12 +1,15 @@
 FROM debian:bullseye
 
-RUN apt update -y && apt upgrade -y && apt-get install -y 
-	adminer \
+RUN apt update -y && apt upgrade -y && apt-get install -y \
 	php7.4 \
+	php-mysql \
 	wget \
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php \
-	&& chmod +x adminer-4.8.1.php \
-	&& chown -R www-data:www-data adminer-4.8.1.php \
-	&& mv adminer-4.8.1.php /var/www/html/adminer.php
+RUN mkdir -p /var/www/html \
+	&& wget https://github.com/vrana/adminer/releases/download/v4.8.1/adminer-4.8.1.php -O /var/www/html/index.php \
+	&& chown -R www-data:www-data /var/www/html/index.php \
+	&& chmod 755 /var/www/html/index.php
+
+WORKDIR /var/www/html
+CMD ["php", "-S", "0.0.0.0:80", "-t", "/var/www/html"]
