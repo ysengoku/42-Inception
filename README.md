@@ -137,7 +137,7 @@ Generate a self-signed SSL certification and private key
 ```bash
 openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 	-keyout /etc/nginx/ssl/inception.key \
-	-subj "/C=FR/ST=AURA/L=Lyon/O=42/OU=42/CN=yusengok.42.fr/UID=yusengok"
+	-subj "/C=FR/ST=AURA/L=Lyon/O=42/OU=42/CN=login.42.fr/UID=login"
 
 # openssl req:
 # Subcommand for certificate request processing (to generate a new certificate)
@@ -235,6 +235,32 @@ Root
             │   └── www.conf   
             └── tools   
                 └── wp_init.sh   
+```
+
+## Bonus Part
+
+### adminer
+Adminer is a database management tool designed to be a single PHP file. We can download directly from https://www.adminer.org/
+
+#### Steps to set Adminer
+1. Install `php`, `php-fpm`, `php-mysql` and `wget`
+2. In Dockerfile of adminer:
+   - Download the Adminer PHP file from https://www.adminer.org/ using wget and save it to `/var/www/html/index.php`
+   - Change ownership and permission of `/var/www/html/index.php`
+   - Update `/etc/php/7.4/fpm/pool.d/www.conf` (listen = '9000')
+   - Expose the port `9000`
+   - Execute the command `php-fpm7.4 --nodaemonize`
+3. Add `location /adminer` in server part of Nginx configuration
+4. Add adminer as service in docker-compose.yml
+	
+#### Access to adminer on browser
+Go to `https://login.42.fr/adminer`   
+Put login informations.
+```
+- server: mariadb
+- username: sql user
+- password: sql user password
+- database: wordpress
 ```
 
 ## References
