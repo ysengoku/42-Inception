@@ -75,3 +75,13 @@ services:
     depends_on:
       - mariadb
     restart: on-failure
+
+  redis:
+    image: redis
+    container_name: redis
+    build: requirements/bonus/redis/.
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    restart: on-failure
