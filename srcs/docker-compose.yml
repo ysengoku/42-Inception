@@ -70,6 +70,8 @@ services:
     image: adminer
     container_name: adminer
     build: requirements/bonus/adminer/.
+    env_file:
+      - .env
     networks:
       - inception
     depends_on:
@@ -80,6 +82,10 @@ services:
     image: redis
     container_name: redis
     build: requirements/bonus/redis/.
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html
     networks:
       - inception
     depends_on:
