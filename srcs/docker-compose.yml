@@ -74,6 +74,4 @@ services:
       - inception
     depends_on:
       - mariadb
-    ports:
-      - "80:80"
     restart: on-failure
