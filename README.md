@@ -296,6 +296,9 @@ Redis is an in-memory database used to store and retrieve data quickly. It acts 
 ##### 3. In __docker-compose.yml__:
    - Add redis as service	
 
+### FTP server
+
+Reference: [vsftpd website](http://vsftpd.beasts.org/vsftpd_conf.html)   
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
