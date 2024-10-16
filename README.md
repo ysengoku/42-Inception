@@ -243,17 +243,19 @@ Root
 Adminer is a database management tool designed to be a single PHP file. We can download directly from https://www.adminer.org/
 
 #### Steps to set up Adminer in this project
-1. In Dockerfile of adminer:
+##### 1. In __Dockerfile__ of adminer:
    - Install `php`, `php-fpm`, `php-mysql` and `wget`
    - Download the Adminer PHP file from https://www.adminer.org/ using wget and save it to `/var/www/html/index.php`
    - Change ownership and permission of `/var/www/html/index.php`
    - Update `/etc/php/7.4/fpm/pool.d/www.conf` (listen = '9000')
    - Expose the port `9000`
    - Execute the command `php-fpm7.4 --nodaemonize`
-2. In nginx.conf of nginx container:
-   - Add `location /adminer` in server part
-3. In docker-compose.yml
-   - Add adminer as service
+    
+##### 2. In __nginx.conf__ of nginx container:
+- Add `location /adminer` in server part
+
+##### 3. In __docker-compose.yml__:
+- Add adminer as service
 	
 #### Access to adminer on browser
 Go to `https://login.42.fr/adminer`   
@@ -269,13 +271,29 @@ Put login informations.
 Redis is an in-memory database used to store and retrieve data quickly. It acts as a cache to speed up applications by keeping frequently accessed data easily accessible.
 
 #### Steps to set up Redis in this project
-1. In Dockerfile of redis:
-   -
-2. In wp_init.sh of wordpress container:
-   - Add Redis configuration
-   - Install and activate plugin
-   - Update ownership and permissions of /var/www/html/wp-content
-3. In docker-compose.yml
+##### 1. In __Dockerfile__ of redis:
+- Install `redis`
+- Update configuration in `/etc/redis/redis.conf`
+```
+   	maxmemory 128mb
+	maxmemory-policy allkeys-lru
+   	bind 0.0.0.0
+   	daemonize no
+```
+- Expose the port `6379`
+
+##### 2. In __wp_init.sh__ of wordpress container:
+- Add following Redis configuration
+```
+   	WP_REDIS_HOST
+   	WP_REDIS_PORT
+   	WP_CACHE_KEY_SALT
+   	WP_REDIS_CLIENT
+```
+- Install and enable plugin
+- Update ownership and permissions of `/var/www/html/wp-content`
+
+##### 3. In __docker-compose.yml__:
    - Add redis as service	
 
 
