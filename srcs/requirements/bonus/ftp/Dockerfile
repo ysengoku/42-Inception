@@ -11,4 +11,8 @@ EXPOSE 20 21
 # Allow users with a shell of /usr/sbin/nologin access to FTP
 RUN echo "/usr/sbin/nologin" >> /etc/shells
 
-CMD ["vsftpd", "/etc/vsftpd.conf"]
+# Initialize FTP server
+COPY ./tools/ftp_init.sh /usr/local/bin/ftp_init.sh
+RUN chmod +x /usr/local/bin/ftp_init.sh
+
+ENTRYPOINT ["/usr/local/bin/ftp_init.sh"]

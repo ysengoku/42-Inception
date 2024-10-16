@@ -1,6 +1,6 @@
 #!/bin/bash
 
-service vsftps start
+service vsftpd start
 
 adduser $ftp_user -disabled-password
 
@@ -15,4 +15,4 @@ mkdir /home/$ftp_user/ftp/files
 chown $ftp_user:$ftp_user /home/$ftp_user/ftp/files
 
 service vsftpd stop
-/usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
+/usr/sbin/vsftpd
