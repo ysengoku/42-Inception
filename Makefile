@@ -3,9 +3,9 @@ COMPOSE_FILE	= ./srcs/docker-compose.yml
 all: up
 
 up:
-	@mkdir -p $(HOME)/data
-	@mkdir -p $(HOME)/data/mariadb
-	@mkdir -p $(HOME)/data/wordpress
+	@mkdir -p -m 775 $(HOME)/data
+	@mkdir -p -m 775 $(HOME)/data/mariadb
+	@mkdir -p -m 775 $(HOME)/data/wordpress
 	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
 
 down:
@@ -24,8 +24,8 @@ clean:	down
 	@docker system prune -f -a --volumes
 
 fclean: clean
-	@sudo rm -rf $(HOME)/data/mariadb
-	@sudo rm -rf $(HOME)/data/wordpress
+	@rm -rf $(HOME)/data/mariadb
+	@rm -rf $(HOME)/data/wordpress
 
 re: fclean all
 
