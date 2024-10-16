@@ -19,6 +19,14 @@ volumes:
       o: bind
       device: /home/yusengok/data/wordpress
 
+  website:
+    name: website
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/yusengok/data/website
+
 services:
   mariadb:
     image: mariadb
@@ -58,6 +66,7 @@ services:
       - .env
     volumes:
       - wordpress:/var/www/html
+      - website:/var/www/resume
     networks:
       - inception
     depends_on:
@@ -91,3 +100,32 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+
+  ftp:
+    image: ftp
+    container_name: ftp
+    build: requirements/bonus/ftp/.
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    ports:
+      - "20:20"
+      - "21:21"
+    restart: on-failure
+
+  website:
+    image: website
+    container_name: website
+    build: requirements/bonus/website/.
+    volumes:
+      - website:/var/www/resume
+    networks:
+      - inception
+    restart: on-failure
+    expose:
+      - "8080"
