@@ -2,7 +2,6 @@
 
 mkdir -p /var/www/html
 cd /var/www/html
-#chmod -R 755 /var/www/html
 
 wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 chmod +x wp-cli.phar
@@ -32,7 +31,18 @@ if [ ! -e /var/www/html/wp-config.php ]; then
             --role=author \
             --user_pass="${WP_USER_PASSWORD}" \
             --allow-root
+
+        # Redis configuration
+        wp config set WP_REDIS_HOST "${REDIS_HOST}" --allow-root
+        wp config set WP_REDIS_PORT 6379 --allow-root
+        wp config set WP_CACHE_KEY_SALT "${DOAMIN_NAME}" --allow-root
+        wp config set WP_REDIS_CLIENT "${REDIS_CLIENT}" --allow-root
 fi
+
+# Install and activate plugins
+wp plugin install redis-cache --activate --allow-root
+wp plugin update redis-cache --allow-root
+wp redis enable --allow-root
 
 mkdir -p /run/php
 chown www-data:www-data /run/php
