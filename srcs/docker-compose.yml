@@ -91,3 +91,20 @@ services:
     depends_on:
       - wordpress
     restart: on-failure
+
+  ftp:
+    image: ftp
+    container_name: ftp
+    build: requirements/bonus/ftp/.
+    env_file:
+      - .env
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - inception
+    depends_on:
+      - wordpress
+    ports:
+      - "20:20"
+      - "21:21"
+    restart: on-failure
