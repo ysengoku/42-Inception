@@ -6,6 +6,7 @@ up:
 	@mkdir -p $(HOME)/data
 	@mkdir -p $(HOME)/data/mariadb
 	@mkdir -p $(HOME)/data/wordpress
+	@mkdir -p $(HOME)/data/website
 	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
 
 down:
