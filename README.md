@@ -239,19 +239,21 @@ Root
 
 ## Bonus Part
 
-### adminer
+### Adminer
 Adminer is a database management tool designed to be a single PHP file. We can download directly from https://www.adminer.org/
 
-#### Steps to set Adminer
-1. Install `php`, `php-fpm`, `php-mysql` and `wget`
-2. In Dockerfile of adminer:
+#### Steps to set up Adminer in this project
+1. In Dockerfile of adminer:
+   - Install `php`, `php-fpm`, `php-mysql` and `wget`
    - Download the Adminer PHP file from https://www.adminer.org/ using wget and save it to `/var/www/html/index.php`
    - Change ownership and permission of `/var/www/html/index.php`
    - Update `/etc/php/7.4/fpm/pool.d/www.conf` (listen = '9000')
    - Expose the port `9000`
    - Execute the command `php-fpm7.4 --nodaemonize`
-3. Add `location /adminer` in server part of Nginx configuration
-4. Add adminer as service in docker-compose.yml
+2. In nginx.conf of nginx container:
+   - Add `location /adminer` in server part
+3. In docker-compose.yml
+   - Add adminer as service
 	
 #### Access to adminer on browser
 Go to `https://login.42.fr/adminer`   
@@ -262,6 +264,20 @@ Put login informations.
 - password: sql user password
 - database: wordpress
 ```
+
+### Redis
+Redis is an in-memory database used to store and retrieve data quickly. It acts as a cache to speed up applications by keeping frequently accessed data easily accessible.
+
+#### Steps to set up Redis in this project
+1. In Dockerfile of redis:
+   -
+2. In wp_init.sh of wordpress container:
+   - Add Redis configuration
+   - Install and activate plugin
+   - Update ownership and permissions of /var/www/html/wp-content
+3. In docker-compose.yml
+   - Add redis as service	
+
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
