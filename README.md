@@ -298,6 +298,11 @@ Redis is an in-memory database used to store and retrieve data quickly. It acts 
 
 ### FTP server
 
+To test if it works, use this command:
+```bash
+filezilla
+```
+
 Reference: [vsftpd website](http://vsftpd.beasts.org/vsftpd_conf.html)   
 
 ## References
