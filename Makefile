@@ -27,6 +27,7 @@ clean:	down
 fclean: clean
 	@sudo rm -rf $(HOME)/data/mariadb
 	@sudo rm -rf $(HOME)/data/wordpress
+	@sudo rm -rf $(HOME)/data/website
 
 re: fclean all
 
