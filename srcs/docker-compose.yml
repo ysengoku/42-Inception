@@ -27,6 +27,14 @@ volumes:
       o: bind
       device: /home/yusengok/data/website
 
+  fail2ban:
+    name: fail2ban
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: /home/yusengok/data/fail2ban
+
 services:
   mariadb:
     image: mariadb
@@ -144,3 +152,15 @@ services:
     #  interval: 30s
     #  timeout: 10s
     #  retries: 1
+
+  fail2ban:
+    image: fail2ban
+    container_name: fail2ban
+    build: requirements/bonus/fail2ban/.
+    volumes:
+      - fail2ban:/var/log/fail2ban
+    env_file:
+      - .env
+    networks:
+      - inception
+    restart: on-failure
