@@ -267,6 +267,8 @@ Put login informations.
 - database: wordpress
 ```
 
+---
+
 ### Redis
 Redis is an in-memory database used to store and retrieve data quickly. It acts as a cache to speed up applications by keeping frequently accessed data easily accessible.
 
@@ -294,7 +296,9 @@ Redis is an in-memory database used to store and retrieve data quickly. It acts 
 - Update ownership and permissions of `/var/www/html/wp-content`
 
 ##### 3. In __docker-compose.yml__:
-   - Add redis as service	
+- Add redis as service	
+
+---
 
 ### FTP server
 
@@ -302,8 +306,35 @@ To test if it works, use this command:
 ```bash
 filezilla
 ```
-
 Reference: [vsftpd website](http://vsftpd.beasts.org/vsftpd_conf.html)   
+
+---   
+
+### Static Website
+I added one-page resume site based on Bootstrap template that I realized during Piscine Discovery.
+
+### Address
+I use a subdomain for this website. To do it, we need to add it to /etc/hosts so that `127.0.0.1` is binded to `subdomain_name.login.42.fr`.   
+```bash
+sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
+
+# In /etc/hosts, we have these 2 lines:
+# 127.0.0.1 login.42.fr
+# 127.0.0.1 subdomain_name.login.42.fr
+```
+
+### Set up a static website
+#### 1. Docker-compose
+- Add a new volume for the website. It should be shared with Nginx
+- Expose the port `8080`
+
+#### 2. Dockerfile
+- Create a directory `/var/www/resume` (I named my site "resume") and change its ownership (www-data) and permission. Copy website files there.
+- Install Python3
+- In `/var/www/resume`, execute `python3 -m http.server 8080`
+
+#### 3. nginx.conf
+- In http section, add a new server for the website with a server_name including subdomain `subdomain_name.login.42.fr` defining `location \`.
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
