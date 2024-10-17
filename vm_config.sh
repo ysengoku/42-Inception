@@ -5,7 +5,7 @@ sudo apt-get update
 sudo apt-get upgrade -y
 
 # Install necessary packages
-sudo apt install make vim
+sudo apt install make vim filezilla -y
 
 sudo apt-get update
 
