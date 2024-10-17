@@ -2,17 +2,23 @@
 
 service vsftpd start
 
-adduser $ftp_user -disabled-password
+if [ -n "{FTP_USER}" ] && [ -n "{FTP_PASSWORD}" ]; then
 
-echo "$ftp_user:$ftp_password" | /usr/sbin/chasswd &> /dev/null
-echo "$ftp_user" | tee -a /etc/vsftpd.userlist &> /dev/null
+	adduser -disabled-password --gecos "" ${FTP_USER}
 
-mkdir -p /home/$ftp_user/ftp
-chown nobody:nogroup /home/$ftp_user/ftp
-chmod a-w /home/$ftp_user/ftp
+	echo "${FTP_USER}:${FTP_PASSWORD}" | /usr/sbin/chpasswd &> /dev/null
+	echo "${FTP_USER}" | tee -a /etc/vsftpd.userlist &> /dev/null
 
-mkdir /home/$ftp_user/ftp/files
-chown $ftp_user:$ftp_user /home/$ftp_user/ftp/files
+	mkdir -p /home/${FTP_USER}/ftp
+	chown nobody:nogroup /home/${FTP_USER}/ftp
+	chmod a-w /home/${FTP_USER}/ftp
+
+	mkdir /home/${FTP_USER}/ftp/files
+	chown ${FTP_USER}:${FTP_USER} /home/${FTP_USER}/ftp/files
+fi
+
+mkdir -p /var/ftp/pub
+chown ftp:ftp /var/ftp/pub
 
 service vsftpd stop
 /usr/sbin/vsftpd
