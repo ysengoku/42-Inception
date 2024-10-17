@@ -31,6 +31,7 @@ fi
 sudo cp /etc/hosts /etc/hosts.backup
 sudo chmod 777 /etc/hosts
 sudo echo "127.0.0.1 yusengok.42.fr" >> /etc/hosts
+sudo echo "127.0.0.1 resume.yusengok.42.fr" >> /etc/hosts
 sudo chmod 644 /etc/hosts
 
 # Add User to docker group
