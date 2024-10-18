@@ -55,8 +55,6 @@ services:
     restart: on-failure
     depends_on:
       - mariadb # Wordpress starts after mariadb
-    expose:
-      - "9000"
 
   nginx:
     image: nginx  # image name
@@ -131,3 +129,21 @@ services:
     restart: on-failure
     expose:
       - "8080"
+
+  fail2ban:
+    image: fail2ban
+    container_name: fail2ban
+    build: requirements/bonus/fail2ban/.
+    volumes:
+      - /var/log/auth.log:/var/log/auth.log # For ssh
+      - /var/log/nginx/error.log:/var/log/nginx/error.log # For nginx
+      - /var/log/vsftpd.log:/var/log/vsftpd.log # For mariadb
+    env_file:
+      - .env
+    networks:
+      - inception
+    depends_on:
+      - nginx
+      - wordpress
+      - ftp
+    restart: on-failure
