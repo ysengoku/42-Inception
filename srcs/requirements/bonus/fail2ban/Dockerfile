@@ -7,8 +7,7 @@ RUN apt update -y && apt upgrade -y && apt-get install -y \
 COPY ./conf/custom.conf /etc/fail2ban/jail.d/custom.conf
 COPY ./conf/nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
 
-
-# Start fail2ban
+# Start fail2ban in the foreground(-f)
 ENTRYPOINT ["/usr/bin/fail2ban-server", "-f"]
 
 #Pour vérifier le bon fonctionnement de fail2ban vous pouvez essayer de vous identifier plusieurs fois en saisissant un mauvais mot de passe. Si Fail2ban fonctionne, vous devriez être interdit d'accès au serveur au bout d'un certain nombre d'essais (précisés dans la configuration à la ligne maxretry) à condition de ne pas avoir mis votre IP dans la directive ignoreip.
