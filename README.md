@@ -339,7 +339,7 @@ sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
 ---
 
 ## Fail2ban
-`fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
+Fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
 
 How `fail2ban` works:
 
@@ -355,11 +355,6 @@ This file specifies the jails and their configurations, including which log file
 
 Example:
 ```properties
-[sshd]
-enabled = true
-logpath = /var/log/auth.log
-maxretry = 5
-
 [nginx-http-auth]
 enabled = true
 port    = http,https
@@ -368,9 +363,9 @@ logpath = /var/log/nginx/error.log
 maxretry = 5
 ```
 
-#### Create filter definition: nginx-http-auth.conf
+#### Create filter definition
 
-This file defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
+Create `nginx-http-auth.conf` for this example. It defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
 
 Example:
 ```properties
@@ -390,6 +385,32 @@ ignoreregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 502
 1. install `fail2ban`
 2. Copy configuration files into the appropriate directories within the fail2ban container.
 3. Start fail2ban in the foreground
+
+### docker-compose
+
+1. Add volumes so that fail2ban can read log files.
+```yml
+services:
+ .....
+
+ fail2ban:
+  .....  
+  volumes:
+   - /var/log/nginx:/var/log/nginx
+   - ...
+```
+
+2. Add the same volume to the concerned cantainer (In this example, nginx container)
+```yml
+services:
+ .....
+
+ nginx:
+  .....  
+  volumes:
+   - /var/log/nginx:/var/log/nginx
+   - ...
+```
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
