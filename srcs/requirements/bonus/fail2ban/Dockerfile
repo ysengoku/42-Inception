@@ -13,8 +13,7 @@ ENTRYPOINT ["/usr/bin/fail2ban-server", "-f"]
 #Pour vérifier le bon fonctionnement de fail2ban vous pouvez essayer de vous identifier plusieurs fois en saisissant un mauvais mot de passe. Si Fail2ban fonctionne, vous devriez être interdit d'accès au serveur au bout d'un certain nombre d'essais (précisés dans la configuration à la ligne maxretry) à condition de ne pas avoir mis votre IP dans la directive ignoreip.
 #Attention ! Pensez à régler la valeur de bantime sur un temps assez court si vous faites ce genre d’essais afin de pouvoir vous reconnecter à votre serveur.
 
-#Côté serveur vous pouvez également surveiller ce qu'il se passe avec la commande
-
+#Surveiller ce qu'il se passe avec la commande
 #sudo fail2ban-client status sshd
 
 #qui dans ce cas vous retournera le statut de la prison « sshd » (avec le nombre de tentatives échouées et la liste des IP bannies)

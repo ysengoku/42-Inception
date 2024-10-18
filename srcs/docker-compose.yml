@@ -27,14 +27,6 @@ volumes:
       o: bind
       device: /home/yusengok/data/website
 
-  fail2ban:
-    name: fail2ban
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: /home/yusengok/data/fail2ban
-
 services:
   mariadb:
     image: mariadb
@@ -63,8 +55,6 @@ services:
     restart: on-failure
     depends_on:
       - mariadb # Wordpress starts after mariadb
-    expose:
-      - "9000"
 
   nginx:
     image: nginx  # image name
@@ -145,9 +135,15 @@ services:
     container_name: fail2ban
     build: requirements/bonus/fail2ban/.
     volumes:
-      - fail2ban:/var/log/fail2ban
+      - /var/log/auth.log:/var/log/auth.log # For ssh
+      - /var/log/nginx/error.log:/var/log/nginx/error.log # For nginx
+      - /var/log/vsftpd.log:/var/log/vsftpd.log # For mariadb
     env_file:
       - .env
     networks:
       - inception
+    depends_on:
+      - nginx
+      - wordpress
+      - ftp
     restart: on-failure

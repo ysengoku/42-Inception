@@ -7,7 +7,6 @@ up:
 	@mkdir -p $(HOME)/data/mariadb
 	@mkdir -p $(HOME)/data/wordpress
 	@mkdir -p $(HOME)/data/website
-	@mkdir -p $(HOME)/data/fail2ban
 	@docker compose -f $(COMPOSE_FILE) -p inception up --build -d
 
 down:
@@ -29,7 +28,6 @@ fclean: clean
 	@sudo rm -rf $(HOME)/data/mariadb
 	@sudo rm -rf $(HOME)/data/wordpress
 	@sudo rm -rf $(HOME)/data/website
-	@sudo rm -rf $(HOME)/data/fail2ban
 
 re: fclean all
 
