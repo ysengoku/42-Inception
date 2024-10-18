@@ -3,7 +3,7 @@
 ## Docker
 Docker is a plateforme which alows applications to run in isolated environments called containers. Containers package everything needed for the application, including software, libralies and configuration files, ensuring that application behaves the same across different environments. This helps reduce issues caused by differences between development and production environments. While similar to virtual machine, Dcoker containers are more lightweight and resource-efficient.      
 
-### Dcoker compose
+### Docker compose
 Docker Compose is a tool for defining and running multi-container Docker applications using a YAML file to configure application services. It allows us to orchestrate multiple containers to work together as a single service.   
    
 Without Docker Compose, managing multi-container applications involves manually setting up and linking each container, which can be complex and error-prone. With Docker Compose, we can define, run, and connect multiple containers as a single service through a simple YAML file, streamlining deployment and development workflows.   
