@@ -1,5 +1,20 @@
 # Inception
 
+## Local development environnment   
+### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
+- Base Memory: 4096 MB
+- Storage: VDI 20.00 GB
+
+### Install necessary applications and set up VM
+```bash
+# Install git
+sudo apt-get update & apt-get upgrade -y
+sudo apt install git
+
+# Execute config script
+bash vm_config.sh
+```
+
 ## Docker
 Docker is a plateforme which alows applications to run in isolated environments called containers. Containers package everything needed for the application, including software, libralies and configuration files, ensuring that application behaves the same across different environments. This helps reduce issues caused by differences between development and production environments. While similar to virtual machine, Dcoker containers are more lightweight and resource-efficient.      
 
@@ -194,23 +209,7 @@ Admin page
 User login   
 `https://login.42.fr/wp-login.php`
 
-
-## Local development environnment   
-### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
-- Base Memory: 4096 MB
-- Storage: VDI 20.00 GB
-
-### Install necessary applications and set up VM
-```bash
-# Install git
-sudo apt-get update & apt-get upgrade -y
-sudo apt install git
-
-# Execute config script
-bash vm_config.sh
-```
-
-## Structure of the project
+## Structure of the project (Mandatory part)
 ```
 Root   
 ├── Makefile   
@@ -410,6 +409,18 @@ services:
   volumes:
    - /var/log/nginx:/var/log/nginx
    - ...
+```
+
+### Check if fail2ban is correctly set up
+```bash
+# Access to fail2ban container
+docker exec -it fail2ban bash
+
+# Check jail status
+fail2ban-client status <jail name>
+
+# Check fail2ban logs
+tail -f /var/log/fail2ban.log
 ```
 
 ## References
