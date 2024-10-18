@@ -6,6 +6,7 @@ RUN apt update -y && apt upgrade -y && apt-get install -y \
 
 COPY ./conf/custom.conf /etc/fail2ban/jail.d/custom.conf
 COPY ./conf/nginx-http-auth.conf /etc/fail2ban/filter.d/nginx-http-auth.conf
+COPY ./conf/wp-login.conf /etc/fail2ban/filter.d/wp-login.conf
 
 # Start fail2ban in the foreground(-f)
 ENTRYPOINT ["/usr/bin/fail2ban-server", "-f"]
@@ -14,7 +15,7 @@ ENTRYPOINT ["/usr/bin/fail2ban-server", "-f"]
 #Attention ! Pensez à régler la valeur de bantime sur un temps assez court si vous faites ce genre d’essais afin de pouvoir vous reconnecter à votre serveur.
 
 #Surveiller ce qu'il se passe avec la commande
-#sudo fail2ban-client status sshd
+#fail2ban-client status sshd
 
 #qui dans ce cas vous retournera le statut de la prison « sshd » (avec le nombre de tentatives échouées et la liste des IP bannies)
 

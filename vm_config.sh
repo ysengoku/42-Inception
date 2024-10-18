@@ -34,6 +34,13 @@ sudo echo "127.0.0.1 yusengok.42.fr" >> /etc/hosts
 sudo echo "127.0.0.1 resume.yusengok.42.fr" >> /etc/hosts
 sudo chmod 644 /etc/hosts
 
+sudo mkdir /var/log/nginx
+sudo chmod 755 /var/log/nginx
+sudo mkdir /var/log/vsftpd
+sudo chmod 755 /var/log/vsftpd
+sudo touch /var/log/vsftpd/vsftpd.log
+sudo chmod 666 /var/log/vsftpd/vsftpd.log
+
 # Add User to docker group
 sudo usermod -aG docker $USER
 sudo reboot
