@@ -10,18 +10,3 @@ COPY ./conf/wp-login.conf /etc/fail2ban/filter.d/wp-login.conf
 
 # Start fail2ban in the foreground(-f)
 ENTRYPOINT ["/usr/bin/fail2ban-server", "-f"]
-
-#Pour vérifier le bon fonctionnement de fail2ban vous pouvez essayer de vous identifier plusieurs fois en saisissant un mauvais mot de passe. Si Fail2ban fonctionne, vous devriez être interdit d'accès au serveur au bout d'un certain nombre d'essais (précisés dans la configuration à la ligne maxretry) à condition de ne pas avoir mis votre IP dans la directive ignoreip.
-#Attention ! Pensez à régler la valeur de bantime sur un temps assez court si vous faites ce genre d’essais afin de pouvoir vous reconnecter à votre serveur.
-
-#Surveiller ce qu'il se passe avec la commande
-#fail2ban-client status sshd
-
-#qui dans ce cas vous retournera le statut de la prison « sshd » (avec le nombre de tentatives échouées et la liste des IP bannies)
-
-#Si vous utilisez un service sujet à de nombreuses attaques par force brute, comme sshd sur le port standard 22, vous devriez très rapidement voir les premiers bannissements.
-
-#Vous pouvez aussi examiner les logs de fail2ban pour voir les actions effectuées :
-
-#tail -f /var/log/fail2ban.log
-
