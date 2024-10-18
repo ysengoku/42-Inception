@@ -1,9 +1,24 @@
 # Inception
 
+## Local development environnment   
+### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
+- Base Memory: 4096 MB
+- Storage: VDI 20.00 GB
+
+### Install necessary applications and set up VM
+```bash
+# Install git
+sudo apt-get update & apt-get upgrade -y
+sudo apt install git
+
+# Execute config script
+bash vm_config.sh
+```
+
 ## Docker
 Docker is a plateforme which alows applications to run in isolated environments called containers. Containers package everything needed for the application, including software, libralies and configuration files, ensuring that application behaves the same across different environments. This helps reduce issues caused by differences between development and production environments. While similar to virtual machine, Dcoker containers are more lightweight and resource-efficient.      
 
-### Docker compose
+### Dcoker compose
 Docker Compose is a tool for defining and running multi-container Docker applications using a YAML file to configure application services. It allows us to orchestrate multiple containers to work together as a single service.   
    
 Without Docker Compose, managing multi-container applications involves manually setting up and linking each container, which can be complex and error-prone. With Docker Compose, we can define, run, and connect multiple containers as a single service through a simple YAML file, streamlining deployment and development workflows.   
@@ -194,23 +209,7 @@ Admin page
 User login   
 `https://login.42.fr/wp-login.php`
 
-
-## Local development environnment   
-### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
-- Base Memory: 4096 MB
-- Storage: VDI 20.00 GB
-
-### Install necessary applications and set up VM
-```bash
-# Install git
-sudo apt-get update & apt-get upgrade -y
-sudo apt install git
-
-# Execute config script
-bash vm_config.sh
-```
-
-## Structure of the project
+## Structure of the project (Mandatory part)
 ```
 Root   
 ├── Makefile   
@@ -339,7 +338,7 @@ sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
 ---
 
 ## Fail2ban
-`fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
+Fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
 
 How `fail2ban` works:
 
@@ -355,11 +354,6 @@ This file specifies the jails and their configurations, including which log file
 
 Example:
 ```properties
-[sshd]
-enabled = true
-logpath = /var/log/auth.log
-maxretry = 5
-
 [nginx-http-auth]
 enabled = true
 port    = http,https
@@ -368,9 +362,9 @@ logpath = /var/log/nginx/error.log
 maxretry = 5
 ```
 
-#### Create filter definition: nginx-http-auth.conf
+#### Create filter definition
 
-This file defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
+Create `nginx-http-auth.conf` for this example. It defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
 
 Example:
 ```properties
@@ -390,6 +384,44 @@ ignoreregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 502
 1. install `fail2ban`
 2. Copy configuration files into the appropriate directories within the fail2ban container.
 3. Start fail2ban in the foreground
+
+#### docker-compose
+
+1. Add volumes so that fail2ban can read log files.
+```yml
+services:
+ .....
+
+ fail2ban:
+  .....  
+  volumes:
+   - /var/log/nginx:/var/log/nginx
+   - ...
+```
+
+2. Add the same volume to the concerned cantainer (In this example, nginx container)
+```yml
+services:
+ .....
+
+ nginx:
+  .....  
+  volumes:
+   - /var/log/nginx:/var/log/nginx
+   - ...
+```
+
+#### Check if fail2ban is correctly set up
+```bash
+# Access to fail2ban container
+docker exec -it fail2ban bash
+
+# Check jail status
+fail2ban-client status <jail name>
+
+# Check fail2ban logs
+tail -f /var/log/fail2ban.log
+```
 
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
