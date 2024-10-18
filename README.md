@@ -336,6 +336,61 @@ sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
 #### 3. nginx.conf
 - In http section, add a new server for the website with a server_name including subdomain `subdomain_name.login.42.fr` defining `location \`.
 
+---
+
+## Fail2ban
+`fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
+
+How `fail2ban` works:
+
+1. Log Monitoring: `fail2ban` monitors specified log files for patterns that match failed login attempts or other suspicious activities.
+2. Filters: It uses filter configuration files to define the regular expressions that identify these patterns.
+3. Actions: When a pattern is matched, `fail2ban` can take actions such as banning the IP address that generated the failed attempt.
+
+### Set up fail2ban
+
+#### Customize configuration: `custom.conf`
+
+This file specifies the jails and their configurations, including which log files to monitor.
+
+Example:
+```properties
+[sshd]
+enabled = true
+logpath = /var/log/auth.log
+maxretry = 5
+
+[nginx-http-auth]
+enabled = true
+port    = http,https
+filter  = nginx-http-auth
+logpath = /var/log/nginx/error.log
+maxretry = 5
+```
+
+#### Create filter definition: nginx-http-auth.conf
+
+This file defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
+
+Example:
+```properties
+[Definition]
+
+# Patterns that fail2ban should use to identify failed attempts
+failregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 401
+            ^<HOST> -.* "(GET|POST).*HTTP/.*" 429
+            ^<HOST> -.* "(GET|POST).*HTTP/.*" 400
+
+# Patterns that fail2ban should ignore
+ignoreregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 502
+```
+
+### Dockerfile for `fail2ban`
+
+1. install `fail2ban`
+2. Copy configuration files into the appropriate directories within the fail2ban container.
+3. Start fail2ban in the foreground
+
 ## References
 [Medium INCEPTION-42](https://medium.com/@gamer.samox/inception-42-d9f1fc38b877)
 
