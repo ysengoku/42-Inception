@@ -99,36 +99,6 @@ Describe which ports the container is listening on.
 ### ENTRYPOINT
 Specify default executable.   
 
-## SQL commands
-
-Before executing SQL commands, we should open an interactive terminal session to the MariaDB instance with `
-docker exec -it <mariadb container_name> mysql -u root -p<password>`
-
-```sql
-SHOW DATABASES;
-# Displays a list of all databases on the server.
-
-SELECT User, Host FROM mysql.user;
-# Show all users
-
-SHOW GRANTS FOR 'your_username'@'%';
-# Retrieve the privileges of a specified user for any host, localhost for the local machine
-```
-
-```sql
-CREATE DATABASE IF NOT EXISTS `your_database_name`;
-# Create a new database if it does not already exist
-
-CREATE USER IF NOT EXISTS 'your_username'@'%' IDENTIFIED BY 'your_password';
-# Create a new user if it does not already exist, allowing connections from any host ('%') with the specified password
-
-GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%' WITH GRANT OPTION;
-# Grant all privileges on all databases and tables to the new user. This also allows the user to grant privileges to others
-
-FLUSH PRIVILEGES;
-# Apply the changes
-```
-
 ## Docker Network
 Docker network allows containers to communicate each other and with the outside. It isolate and secure container communications.   
 
@@ -148,7 +118,8 @@ networks:
 ## Nginx
 
 ### OpenSSL
-Generate a self-signed SSL certification and private key   
+
+#### Generate a self-signed SSL certification and private key   
 ```bash
 openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 	-keyout /etc/nginx/ssl/inception.key \
@@ -177,10 +148,11 @@ openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt \
 	#/O=42: Organization Name
 	#/OU=42: Organizational Unit Name
 	#/CN=login.42.fr: Common Name. (Typically the domain name for which the certificate is valid)
-	#/UID=login: ユーザ識別子 (User ID)
+	#/UID=login: User ID
 ```
 
-Test SSL configuration
+#### Test SSL configuration
+
 ```bash
 # Try to access with insecure SSL connections (-k option)
 curl -k https://login.42.fr
@@ -190,9 +162,23 @@ docker exec -it nginx bash
 cat /var/log/nginx/error.log
 cat /var/log/nginx/access.log
 ```
+```bash
+curl -v --tlsv1.2 --insecure https://login.42.fr
+
+# On success, we get a mesage like this on stdout
+# 
+# * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# * TLSv1.3 (IN), TLS handshake, Newsession Ticket (4):
+# < HTTP/1.1 200 OK
+```
+We connot connect with `curl -v --tlsv1.3 --insecure http://login.42.fr` (PORT 80) or `curl -v --tlsv1.1 --tls-max 1.1 --insecure https://login.42.fr` (Old TLS version).
 
 ## MariaDB
-Login to database
+
+### SQL commands
+
+Before executing SQL commands, we should open an interactive terminal session to the MariaDB instance.
+
 ```bash
 # Access to mariadb container's shell
 docker exec -it mariadb bash
@@ -200,6 +186,37 @@ docker exec -it mariadb bash
 # Login to MariaDB
 mysql -u root -p<password> # As root
 mysql -u <user name> -p<password> # As User
+```
+
+```sql
+CREATE DATABASE IF NOT EXISTS `your_database_name`;
+# Create a new database if it does not already exist
+
+CREATE USER IF NOT EXISTS 'your_username'@'%' IDENTIFIED BY 'your_password';
+# Create a new user if it does not already exist, allowing connections from any host ('%') with the specified password
+
+GRANT ALL PRIVILEGES ON *.* TO 'your_username'@'%' WITH GRANT OPTION;
+# Grant all privileges on all databases and tables to the new user. This also allows the user to grant privileges to others
+
+FLUSH PRIVILEGES;
+# Apply the changes
+```
+
+### Check if the configuration is correct
+```sql
+# Displays a list of all databases on the server.
+SHOW DATABASES;
+
+# Show all users
+SELECT User, Host FROM mysql.user;
+
+# Retrieve the privileges of a specified user for any host, localhost for the local machine
+SHOW GRANTS FOR 'your_username'@'%';
+
+# Show database content
+USE <database name>; # Select a database
+SHOW TABLES;
+SELECT * FROM <table name> LIMIT 10; # Show a table content
 ```
 
 ## Wordpress
