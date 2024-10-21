@@ -22,4 +22,4 @@ mkdir -p /var/ftp/pub
 chown ftp:ftp /var/ftp/pub
 
 service vsftpd stop
-/usr/sbin/vsftpd
+exec /usr/sbin/vsftpd

@@ -18,4 +18,4 @@ RUN mkdir -p /var/www/html \
 COPY ./conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
 
 EXPOSE 9001
-CMD ["php-fpm7.4", "--nodaemonize"]
+ENTRYPOINT ["php-fpm7.4", "--nodaemonize"]

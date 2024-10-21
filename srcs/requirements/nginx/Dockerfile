@@ -19,10 +19,10 @@ COPY ./conf/nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE 443
 
-# To ensure Nginx stays in the foreground
-CMD ["nginx", "-g", "daemon off;"]
-
 # Set the permission
 RUN chmod -R 755 /var/www/html/
 # Set the ownership
 RUN chown -R www-data:www-data /var/www/html/
+
+# To ensure Nginx stays in the foreground
+ENTRYPOINT ["nginx", "-g", "daemon off;"]

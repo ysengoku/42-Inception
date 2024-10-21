@@ -14,4 +14,4 @@ COPY ./resume /var/www/resume
 EXPOSE 8080
 
 WORKDIR /var/www/resume
-CMD ["python3", "-m", "http.server", "8080"]
+ENTRYPOINT ["python3", "-m", "http.server", "8080"]
