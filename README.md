@@ -329,7 +329,7 @@ Reference: [vsftpd website](http://vsftpd.beasts.org/vsftpd_conf.html)
 ### Static Website
 I added one-page resume site based on Bootstrap template that I realized during Piscine Discovery.
 
-### Address
+#### Address
 I use a subdomain for this website. To do it, we need to add it to /etc/hosts so that `127.0.0.1` is binded to `subdomain_name.login.42.fr`.   
 ```bash
 sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
@@ -339,22 +339,22 @@ sudo echo "127.0.0.1 subdomain_name.login.42.fr" >> /etc/hosts
 # 127.0.0.1 subdomain_name.login.42.fr
 ```
 
-### Set up a static website
-#### 1. Docker-compose
+#### Set up a static website
+##### 1. Docker-compose
 - Add a new volume for the website. It should be shared with Nginx
 - Expose the port `8080`
 
-#### 2. Dockerfile
+##### 2. Dockerfile
 - Create a directory `/var/www/resume` (I named my site "resume") and change its ownership (www-data) and permission. Copy website files there.
 - Install Python3
 - In `/var/www/resume`, execute `python3 -m http.server 8080`
 
-#### 3. nginx.conf
+##### 3. nginx.conf
 - In http section, add a new server for the website with a server_name including subdomain `subdomain_name.login.42.fr` defining `location \`.
 
 ---
 
-## Fail2ban
+### Fail2ban
 Fail2ban checks log files to find failed attempts and then takes action based on the configured rules. It uses regular expressions defined in filter configuration files to identify failed login attempts or other suspicious activities in the logs.
 
 How `fail2ban` works:
@@ -363,9 +363,9 @@ How `fail2ban` works:
 2. Filters: It uses filter configuration files to define the regular expressions that identify these patterns.
 3. Actions: When a pattern is matched, `fail2ban` can take actions such as banning the IP address that generated the failed attempt.
 
-### Set up fail2ban
+#### Set up fail2ban
 
-#### Customize configuration: `custom.conf`
+##### Customize configuration: `custom.conf`
 
 This file specifies the jails and their configurations, including which log files to monitor.
 
@@ -379,7 +379,7 @@ logpath = /var/log/nginx/error.log
 maxretry = 5
 ```
 
-#### Create filter definition
+##### Create filter definition
 
 Create `nginx-http-auth.conf` for this example. It defines the filter used by the `nginx-http-auth` jail. The `[Definition]` section contains the regular expressions that `fail2ban` will use to identify failed attempts in the log file.
 
@@ -396,13 +396,13 @@ failregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 401
 ignoreregex = ^<HOST> -.* "(GET|POST).*HTTP/.*" 502
 ```
 
-#### Dockerfile for `fail2ban`
+##### Dockerfile for `fail2ban`
 
 1. install `fail2ban`
 2. Copy configuration files into the appropriate directories within the fail2ban container.
 3. Start fail2ban in the foreground
 
-#### docker-compose
+##### docker-compose
 
 1. Add volumes so that fail2ban can read log files.
 ```yml
@@ -428,7 +428,7 @@ services:
    - ...
 ```
 
-#### Check if fail2ban is correctly set up
+##### Check if fail2ban is correctly set up
 ```bash
 # Access to fail2ban container
 docker exec -it fail2ban bash
