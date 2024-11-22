@@ -1,5 +1,7 @@
 # Inception
 
+Inception is a 42 School project focused on building a multi-service infrastructure using Docker and Docker Compose. This project explores containerization, service orchestration, and secure system architecture by setting up and managing essential services like databases and web servers.   
+
 ## Local development environnment   
 ### Ubuntu 24.04.1 Desktop (64-bit) on VirtualBox ver6.1
 - Base Memory: 4096 MB
